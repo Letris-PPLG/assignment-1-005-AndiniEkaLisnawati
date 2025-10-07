@@ -3,12 +3,12 @@ const app = express();
 const port = 5001 || process.env.port;
 app.use(express.json());
 
-const message = [{
+let message = [{
     msg: "API berjalan normal",
     code: 200
 }]
 
-const todos = [
+let todos = [
     { "id": 1, "title": "Belajar Node.js", "done": false },
     { "id": 2, "title": "Belajar Express.js", "done": true }
   ]
@@ -39,9 +39,17 @@ app.put('/todos/:id', (req, res)=> {
         console.log("title is required!")
     }
     let newTodo = {id: id, title: title, done: done}
-    todos.splice(id,1)
+    todos.slice(0, id)
     todos.push(newTodo)
     res.status(200).json(newTodo)
+})
+
+app.delete('/todos/:id', (req, res)=> {
+ const {id} = req.params;
+ const {title, body} = req.body;
+ const current = todos.find((t) => t.id = id, t.title = title, t.done=done)
+ todos.slice(current)
+ res.status(200).json(todos)
 })
 
 
@@ -51,4 +59,10 @@ app.listen(port, ()=> {
 
 
 // AMBIL DATA YANG MAU DIUPDATE APA
-// AMBIL ID DARI PARAMS
+// AMBIL ID DARI 
+
+ let number =[1, 2, 3, 4, 5]
+ let slice = number.slice(0, 4);
+ let splice = number.splice(2)
+ console.log(`splice: [${splice}]`)
+ console.log(`slice: [${slice}]`)
